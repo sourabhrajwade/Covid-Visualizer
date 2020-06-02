@@ -12,7 +12,7 @@ export class StatesInfoComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.formStates = this.fb.group({
       select: this.fb.control('', Validators.required)
-    })
+    });
   }
 
   ngOnInit(): void {
