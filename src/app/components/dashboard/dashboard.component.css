@@ -1,0 +1,7 @@
+.cases {
+  border: 1px solid black;
+  border-radius: 10px;
+}
+.activecase {
+  color: red;
+}

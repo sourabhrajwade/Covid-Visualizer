@@ -64,35 +64,28 @@
         </div>
       </div>
       <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-      >
-        <h1 class="h2">Covid Tracker</h1>
-        <div class="h3" ngClass="['cases','activecase']">
-          <h5>Active</h5>
-          {{ Active }}
-        </div>
-        <div class="h3" ngClass="['cases','confirmed']">
-          <h5>Confimed</h5>
-          {{ Confirmed }}
-        </div>
-        <div class="h3" ngClass="['cases','deaths']">
-          <h5>Deaths</h5>
-          {{ Deaths }}
-        </div>
-        <div class="btn-toolbar mb-2 mb-md-0">
-
-          <button
-            type="button"
-            class="btn btn-sm btn-outline-secondary dropdown-toggle"
-          >
-
-          </button>
-        </div>
+        class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+      > <div style="padding: 10px;margin: 10px;">
+        <h3 class="h3">Select State</h3>
       </div>
+        <div>
+          <form [formGroup]="formStates" >
+            <div class="form-group">
+              <select formControlName="select">
+                <option value="state">Andaman and Nicobar</option>
+              </select>
+
+            </div>
+
+          </form>
+        </div>
+
+
+
+      </div>
+
       <!-- <router-outlet></router-outlet> -->
-      <app-my-line-chart></app-my-line-chart>
-      <h2>State-wise Statistics</h2>
-      <app-state-table></app-state-table>
+      <!-- <app-my-line-chart></app-my-line-chart> -->
+      <!-- <h2>State-wise Statistics</h2> -->
+      <!-- <app-state-table></app-state-table> -->
     </main>
-  </div>
-</div>

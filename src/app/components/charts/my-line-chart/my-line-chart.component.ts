@@ -45,8 +45,8 @@ export class MyLineChartComponent implements OnInit {
         this.totalRecoverd.push(item.dailyrecovered);
       });
 
-      console.log(this.dataContainer);
-      console.log(this.days);
+      //console.log(this.dataContainer);
+      //console.log(this.days);
       //console.log(this.totalConformed);
     });
 

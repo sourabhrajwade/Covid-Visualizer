@@ -15,6 +15,8 @@ import { StateTableComponent } from './components/state-table/state-table.compon
 
 import { ChartsModule } from 'ng2-charts';
 import { MyLineChartComponent } from './components/charts/my-line-chart/my-line-chart.component';
+import { StatesInfoComponent } from './components/states-info/states-info.component';
+import { SideNavbarComponent } from './components/side-navbar/side-navbar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +25,9 @@ import { MyLineChartComponent } from './components/charts/my-line-chart/my-line-
 
     LoginComponent,
     StateTableComponent,
-    MyLineChartComponent
+    MyLineChartComponent,
+    StatesInfoComponent,
+    SideNavbarComponent
 
   ],
   imports: [

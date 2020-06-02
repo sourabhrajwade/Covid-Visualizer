@@ -1,10 +1,13 @@
+
 <div class="container">
+
   <div class="row" [ngClass]="'topnav'">
     <h3 class="text text-center">Covid Dashboard</h3>
-    <button class="btn btn-white">Register</button>
+    <button class="btn btn-white" (click)="doLogin()">Log In</button>
+    <button class="btn btn-danger" (click)="doRegister()">Register</button>
   </div>
   <hr>
-  <div class="row justify-content-center align-items-center" [ngClass]="">
+  <div class="row justify-content-center align-items-center" [ngClass]="(mode)?'visible':'hide'">
     <form [formGroup]="userForm" (ngSubmit)="login()">
       <div class="form-group" >
         <label for="email">Email ID</label>
@@ -30,7 +33,7 @@
     </form>
   </div>
   <div class="row justify-content-center align-items-center">
-    <form [formGroup]="regForm" (ngSubmit)="register()">
+    <form [formGroup]="regForm" (ngSubmit)="register()" [ngClass]="(mode)?'hide':'visible'">
       <div class="form-group" >
         <label for="first">First Name</label>
         <input

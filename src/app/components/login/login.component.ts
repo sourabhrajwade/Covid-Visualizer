@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  public mode = 1;
   private _LOGINURL = 'https://zen-user-api.herokuapp.com/users/authenticate';
   private _REGURL = 'https://zen-user-api.herokuapp.com/users/register';
   userForm: FormGroup;
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('detail', detail.token);
         this.router.navigate(['/dash']);
       } else {
-        alert('Incorrect detail, Please try again ');
+        this.alertService.danger('Email/Password is incorrect');
       }
     });
   }
@@ -53,11 +54,17 @@ export class LoginComponent implements OnInit {
       password: this.regForm.get('password').value,
     }). subscribe((entry) => {
       console.log(entry);
+      this.alertService.success('Registration successfull. Please Login');
     });
   }
 
 
   ngOnInit(): void {
   }
-
+  doLogin() {
+    this.mode = 1;
+  }
+  doRegister() {
+    this.mode = undefined;
+  }
 }
