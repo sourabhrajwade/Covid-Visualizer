@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row" [ngClass]="'topnav'">
+    <h3 class="text text-center">Covid Dashboard</h3>
+    <button class="btn btn-white">Register</button>
+  </div>
+  <hr>
+  <div class="row justify-content-center align-items-center" [ngClass]="">
+    <form [formGroup]="userForm" (ngSubmit)="login()">
+      <div class="form-group" >
+        <label for="email">Email ID</label>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          id="email"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
+  <div class="row justify-content-center align-items-center">
+    <form [formGroup]="regForm" (ngSubmit)="register()">
+      <div class="form-group" >
+        <label for="first">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="first"
+          id="first"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="last">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="last"
+          formControlName="last"
+          required
+        />
+      </div>
+      <div class="form-group" >
+        <label for="email">Email ID</label>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          id="email"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>

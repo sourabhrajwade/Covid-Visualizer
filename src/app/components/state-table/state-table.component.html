@@ -1,0 +1,25 @@
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>S.No.</th>
+        <th>State</th>
+        <th>Active</th>
+        <th>Confimed</th>
+        <th>Recovered</th>
+        <th>Deaths</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataIndState; let i = index">
+        <td>{{ i }}</td>
+        <td>{{ item.state }}</td>
+        <td>{{ item.active }}</td>
+        <td>{{ item.confirmed }}</td>
+        <td>{{ item.recovered }}</td>
+        <td>{{ item.deaths }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
