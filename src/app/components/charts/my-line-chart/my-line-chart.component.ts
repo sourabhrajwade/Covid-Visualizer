@@ -1,3 +1,4 @@
+import { IndiaDataService } from './../../../services/india-data.service';
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
@@ -8,11 +9,17 @@ import { Color, Label } from 'ng2-charts';
   styleUrls: ['./my-line-chart.component.css']
 })
 export class MyLineChartComponent implements OnInit {
-
+  public dataContainer;
+  public totalConformed = [];
+  public totalDeceased = [];
+  public totalRecoverd = [];
+  public days = [];
   public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+    { data: this.totalConformed, label: 'Confirmed' },
+    { data: this.totalRecoverd, label: 'Recovered' },
+    { data: this.totalDeceased, label: 'Deceased' }
   ];
-  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabels: Label[] = this.days;
   public lineChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -26,9 +33,22 @@ export class MyLineChartComponent implements OnInit {
   public lineChartType: ChartType = 'line';
   public lineChartPlugins = [];
 
-  constructor() { }
+  constructor(private indiaData: IndiaDataService) { }
 
-  ngOnInit() {
+  ngOnInit(){
+    this.indiaData.getData().subscribe((data) => {
+      this.dataContainer = data.cases_time_series;
+      this.dataContainer.forEach((item) => {
+        this.totalConformed.push(item.totalconfirmed);
+        this.days.push(item.date);
+        this.totalDeceased.push(item.dailydeceased);
+        this.totalRecoverd.push(item.dailyrecovered);
+      });
+
+      console.log(this.dataContainer);
+      console.log(this.days);
+      //console.log(this.totalConformed);
+    });
+
   }
-
 }
