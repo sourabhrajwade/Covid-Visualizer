@@ -17,6 +17,8 @@ import { ChartsModule } from 'ng2-charts';
 import { MyLineChartComponent } from './components/charts/my-line-chart/my-line-chart.component';
 import { StatesInfoComponent } from './components/states-info/states-info.component';
 import { SideNavbarComponent } from './components/side-navbar/side-navbar.component';
+
+import { NgHttpLoaderModule } from 'ng-http-loader';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +40,8 @@ import { SideNavbarComponent } from './components/side-navbar/side-navbar.compon
     FormsModule,
     BrowserAnimationsModule,
     AlertModule.forRoot({ maxMessages: 5, timeout: 3000, position: 'right' }),
-    ChartsModule
+    ChartsModule,
+    NgHttpLoaderModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

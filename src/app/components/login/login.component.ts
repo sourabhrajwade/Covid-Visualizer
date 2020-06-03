@@ -1,3 +1,4 @@
+import { LoginService } from './../../services/login.service';
 import { AlertService } from 'ngx-alerts';
 import { Login, Register } from './../../models/login.models';
 import { HttpClient } from '@angular/common/http';
@@ -26,27 +27,29 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private alertService: AlertService,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: LoginService
   ) {
     this.userForm = this.fb.group({
-      email: this.fb.control('', [Validators.required, Validators.email]),
-      password: this.fb.control('', Validators.required),
+      email: this.fb.control(''),
+      password: this.fb.control(''),
     });
 
-    this.regForm = new FormGroup({
-      first: new FormControl(''),
-      last: new FormControl(''),
-      email: new FormControl(''),
-      password: new FormControl('', Validators.required),
+    this.regForm = this.fb.group({
+      first: this.fb.control(''),
+      last: this.fb.control(''),
+      email: this.fb.control(''),
+      password: this.fb.control(''),
     });
   }
   login() {
-    this.userService.checkLogin(this.userForm.value).subscribe(
+    this.userService.login(this.userForm.value).subscribe(
       (data) => {
-        console.log(data);
+        this.userService.setToken(data.token);
+        this.router.navigate(['/dash']);
       },
       (err) => {
         console.log(err);
+        alert(err);
       });
   }
   // login() {
@@ -65,18 +68,31 @@ export class LoginComponent implements OnInit {
   //       }
   //     });
   // }
+  // register() {
+  //   this.http
+  //     .post<Register>(this._REGURL, {
+  //       firstName: this.regForm.get('first').value,
+  //       lastName: this.regForm.get('last').value,
+  //       email: this.regForm.get('email').value,
+  //       password: this.regForm.get('password').value,
+  //     })
+  //     .subscribe((entry) => {
+  //       console.log(entry);
+  //       this.alertService.success('Registration successfull. Please Login');
+  //     });
+  // }
   register() {
-    this.http
-      .post<Register>(this._REGURL, {
-        firstName: this.regForm.get('first').value,
-        lastName: this.regForm.get('last').value,
-        email: this.regForm.get('email').value,
-        password: this.regForm.get('password').value,
-      })
-      .subscribe((entry) => {
-        console.log(entry);
-        this.alertService.success('Registration successfull. Please Login');
-      });
+    if (this.regForm.valid) {
+      this.userService.getRegistered(this.regForm.value).subscribe(
+        (data) => {
+          console.log(data);
+          this.router.navigate(['']);
+        },
+        (err) => {
+          alert(err.message);
+        }
+      );
+    }
   }
 
   ngOnInit(): void {}

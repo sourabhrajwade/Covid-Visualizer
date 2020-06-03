@@ -10,3 +10,13 @@ export interface Register {
   email: string;
   password: string;
 }
+
+
+export interface Auth {
+  firstName: string;
+  lastName: string;
+  email: string;
+  createdDate: string;
+  id: string;
+  token: string;
+}
