@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar *ngIf="isAuthenticated"></app-navbar>
 <div class="container-fluid">
   <div class="row">
     <app-side-navbar></app-side-navbar>
@@ -90,9 +90,9 @@
         </div>
       </div>
       <!-- <router-outlet></router-outlet> -->
-      <app-my-line-chart></app-my-line-chart>
+      <app-my-line-chart  *ngIf="isAuthenticated"></app-my-line-chart>
       <h2>State-wise Statistics</h2>
-      <app-state-table></app-state-table>
+      <app-state-table  *ngIf="isAuthenticated"></app-state-table>
     </main>
   </div>
 </div>

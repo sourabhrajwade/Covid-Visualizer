@@ -1,3 +1,4 @@
+import { AuthGurad } from './components/login/auth-guard';
 import { StateTableComponent } from './components/state-table/state-table.component';
 import { MyLineChartComponent } from './components/charts/my-line-chart/my-line-chart.component';
 import { StatesInfoComponent } from './components/states-info/states-info.component';
@@ -14,7 +15,8 @@ const routes: Routes = [
   },
   {
     path: 'dash',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [AuthGurad]
   },
   {
     path: 'dash',
@@ -24,10 +26,6 @@ const routes: Routes = [
     path: 'dash',
     component: StateTableComponent
   },
-  {
-    path: 'dash/states',
-    component: StatesInfoComponent
-  }
 ];
 
 @NgModule({

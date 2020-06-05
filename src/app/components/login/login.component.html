@@ -12,7 +12,7 @@
   </div>
   <div class="row justify-content-center align-items-center">
 
-    <form [formGroup]="userForm" (ngSubmit)="login()" [ngClass]="(isLoginMode)?'visible':'hide'">
+    <form [formGroup]="userForm" (ngSubmit)="onLogin()" [ngClass]="(isLoginMode)?'visible':'hide'">
 
       <div class="form-group" >
         <label for="email">Email ID</label>

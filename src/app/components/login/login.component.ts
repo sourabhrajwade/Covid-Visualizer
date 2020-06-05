@@ -43,10 +43,6 @@ export class LoginComponent implements OnInit {
       password: this.fb.control(''),
     });
   }
-  onLogin() {
-    console.log(this.userForm.value);
-    this.userForm.reset();
-  }
 
   onSignUp() {
     if (!this.regForm.valid) {
@@ -69,7 +65,7 @@ export class LoginComponent implements OnInit {
     );
     this.regForm.reset();
   }
-  login() {
+  onLogin() {
     if (!this.userForm.valid) {
       return;
     }
@@ -132,12 +128,6 @@ export class LoginComponent implements OnInit {
   // }
 
   ngOnInit(): void {}
-  doLogin() {
-    this.mode = 1;
-  }
-  doRegister() {
-    this.mode = undefined;
-  }
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
