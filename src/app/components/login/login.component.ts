@@ -18,8 +18,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  public mode = 1;
-
+  //public mode = 1;
+  isLoginMode = true;
   userForm;
   regForm;
   constructor(
@@ -68,19 +68,19 @@ export class LoginComponent implements OnInit {
   //       }
   //     });
   // }
-  // register() {
-  //   this.http
-  //     .post<Register>(this._REGURL, {
-  //       firstName: this.regForm.get('first').value,
-  //       lastName: this.regForm.get('last').value,
-  //       email: this.regForm.get('email').value,
-  //       password: this.regForm.get('password').value,
-  //     })
-  //     .subscribe((entry) => {
-  //       console.log(entry);
-  //       this.alertService.success('Registration successfull. Please Login');
-  //     });
-  // }
+  register() {
+    this.http
+      .post<Register>(this._REGURL, {
+        firstName: this.regForm.get('first').value,
+        lastName: this.regForm.get('last').value,
+        email: this.regForm.get('email').value,
+        password: this.regForm.get('password').value,
+      })
+      .subscribe((entry) => {
+        console.log(entry);
+        this.alertService.success('Registration successfull. Please Login');
+      });
+  }
   register() {
     if (this.regForm.valid) {
       this.userService.getRegistered(this.regForm.value).subscribe(
@@ -96,10 +96,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-  doLogin() {
-    this.mode = 1;
-  }
-  doRegister() {
-    this.mode = undefined;
+  // doLogin() {
+  //   this.mode = 1;
+  // }
+  // doRegister() {
+  //   this.mode = undefined;
+  // }
+  onSwitchMode() {
+    this.isLoginMode = !this.isLoginMode;
   }
 }
