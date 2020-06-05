@@ -1,6 +1,6 @@
 import { LoginService } from './../../services/login.service';
 import { AlertService } from 'ngx-alerts';
-import { Login, Register } from './../../models/login.models';
+import { Login, Register, Auth } from './../../models/login.models';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { last } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +19,11 @@ import { Observable } from 'rxjs';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  //public mode = 1;
+  public mode = 1;
   isLoginMode = true;
   userForm;
   regForm;
+  error: string = null;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -41,16 +43,50 @@ export class LoginComponent implements OnInit {
       password: this.fb.control(''),
     });
   }
-  login() {
-    this.userService.login(this.userForm.value).subscribe(
-      (data) => {
-        this.userService.setToken(data.token);
+  onLogin() {
+    console.log(this.userForm.value);
+    this.userForm.reset();
+  }
+
+  onSignUp() {
+    if (!this.regForm.valid) {
+      return;
+    }
+    console.log(this.regForm.value);
+    const firstN = this.regForm.value.first;
+    const lastN = this.regForm.value.last;
+    const email = this.regForm.value.email;
+    const password = this.regForm.value.password;
+    this.userService.singup(firstN, lastN, email, password).subscribe(
+      (resData) => {
+        console.log(resData);
         this.router.navigate(['/dash']);
       },
-      (err) => {
-        console.log(err);
-        alert(err);
-      });
+      (errorMessage) => {
+        console.log(errorMessage);
+        this.error = errorMessage;
+      }
+    );
+    this.regForm.reset();
+  }
+  login() {
+    if (!this.userForm.valid) {
+      return;
+    }
+    console.log(this.userForm.value);
+    const email = this.userForm.value.email;
+    const password = this.userForm.value.password;
+    this.userService.login(email, password).subscribe(
+      (resData) => {
+        console.log(resData);
+        this.router.navigate(['/dash']);
+      },
+      (errorMessage) => {
+        console.log(errorMessage);
+        this.error = errorMessage;
+      }
+    );
+    this.userForm.reset();
   }
   // login() {
   //   this.http
@@ -68,41 +104,42 @@ export class LoginComponent implements OnInit {
   //       }
   //     });
   // }
-  register() {
-    this.http
-      .post<Register>(this._REGURL, {
-        firstName: this.regForm.get('first').value,
-        lastName: this.regForm.get('last').value,
-        email: this.regForm.get('email').value,
-        password: this.regForm.get('password').value,
-      })
-      .subscribe((entry) => {
-        console.log(entry);
-        this.alertService.success('Registration successfull. Please Login');
-      });
-  }
-  register() {
-    if (this.regForm.valid) {
-      this.userService.getRegistered(this.regForm.value).subscribe(
-        (data) => {
-          console.log(data);
-          this.router.navigate(['']);
-        },
-        (err) => {
-          alert(err.message);
-        }
-      );
-    }
-  }
+  // register() {
+  //   this.http
+  //     .post<Register>(this._REGURL, {
+  //       firstName: this.regForm.get('first').value,
+  //       lastName: this.regForm.get('last').value,
+  //       email: this.regForm.get('email').value,
+  //       password: this.regForm.get('password').value,
+  //     })
+  //     .subscribe((entry) => {
+  //       console.log(entry);
+  //       this.alertService.success('Registration successfull. Please Login');
+  //     });
+  // }
+  // register() {
+  //   if (this.regForm.valid) {
+  //     this.userService.getRegistered(this.regForm.value).subscribe(
+  //       (data) => {
+  //         console.log(data);
+  //         this.router.navigate(['']);
+  //       },
+  //       (err) => {
+  //         alert(err.message);
+  //       }
+  //     );
+  //   }
+  // }
 
   ngOnInit(): void {}
-  // doLogin() {
-  //   this.mode = 1;
-  // }
-  // doRegister() {
-  //   this.mode = undefined;
-  // }
+  doLogin() {
+    this.mode = 1;
+  }
+  doRegister() {
+    this.mode = undefined;
+  }
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
+
 }

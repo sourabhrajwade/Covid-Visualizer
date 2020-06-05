@@ -3,17 +3,12 @@
 
   <div class="row" [ngClass]="'topnav'">
     <h3 class="text text-center">Covid Dashboard</h3>
+    <button class="btn btn-white" (click)="doLogin()">Log In</button>
+    <button class="btn btn-danger" (click)="doRegister()">Register</button>
   </div>
   <hr>
-  <div class="row justify-content-center align-items-center">
-    <div class="alert alert-danger" *ngIf="error">
-      <p>{{ error }}</p>
-    </div>
-  </div>
-  <div class="row justify-content-center align-items-center">
-
-    <form [formGroup]="userForm" (ngSubmit)="login()" [ngClass]="(isLoginMode)?'visible':'hide'">
-
+  <div class="row justify-content-center align-items-center" [ngClass]="(mode)?'visible':'hide'">
+    <form [formGroup]="userForm" (ngSubmit)="login()">
       <div class="form-group" >
         <label for="email">Email ID</label>
         <input
@@ -22,7 +17,6 @@
           formControlName="email"
           id="email"
           required
-          email
         />
       </div>
       <div class="form-group">
@@ -33,28 +27,20 @@
           id="password"
           formControlName="password"
           required
-          minlength=4
         />
       </div>
-
-      <button type="submit" class="btn btn-success" [disabled]="!userForm.valid">{{ isLoginMode ? 'Login': 'Sign Up'}}</button> |
-    <button type="button" class="btn btn-primary" (click)="onSwitchMode()"> Switch to {{ isLoginMode ? 'Sign Up': 'Login'}}</button>
+      <button type="submit" class="btn btn-success">Submit</button>
     </form>
-
-  </div>
-  <div>
-
   </div>
   <div class="row justify-content-center align-items-center">
-    <form [formGroup]="regForm" (ngSubmit)="onSignUp()" [ngClass]="(isLoginMode)?'hide':'visible'">
+    <form [formGroup]="regForm" (ngSubmit)="register()" [ngClass]="(mode)?'hide':'visible'">
       <div class="form-group" >
         <label for="first">First Name</label>
         <input
           type="text"
           class="form-control"
-          id="first"
           formControlName="first"
-
+          id="first"
           required
         />
       </div>
@@ -88,9 +74,7 @@
           required
         />
       </div>
-      <!-- <button type="submit" class="btn btn-primary">Register</button> -->
-      <button type="submit" class="btn btn-success" [disabled]="!regForm.valid">{{ isLoginMode ? 'Login': 'Sign Up'}}</button> |
-    <button type="button" class="btn btn-primary" (click)="onSwitchMode()"> Switch to {{ isLoginMode ? 'Sign Up': 'Login'}}</button>
+      <button type="submit" class="btn btn-primary">Register</button>
     </form>
   </div>
 </div>

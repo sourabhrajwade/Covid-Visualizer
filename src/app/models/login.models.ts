@@ -1,4 +1,6 @@
 export interface Login {
+  firstName?: string;
+  lastName?: string;
   email: string;
   password: string;
   token?: string;
@@ -19,4 +21,18 @@ export interface Auth {
   createdDate: string;
   id: string;
   token: string;
+}
+
+export class User {
+  constructor(
+    public firstName: string,
+    public lastName: string,
+    public email: string,
+    public createdDate: string,
+    public id: string,
+    private token: string,
+  ) {}
+  get _token() {
+    return this.token;
+  }
 }
